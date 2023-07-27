@@ -4,7 +4,6 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  background-color: #f0f0f0;
 }
 
 .content {
@@ -33,72 +32,4 @@
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 1.5;
-}
-
-.ctaButtonWrap {
-  width: fit-content;
-}
-
-.ctaButton {
-  position: relative;
-  font-size: 1.25rem;
-  transition: color 0.5s, transform 0.2s, background-color 0.2s;
-  outline: none;
-  border-radius: 0.1875rem;
-  padding: 1.5rem 2.5rem;
-  border: 0.1875rem solid transparent;
-  background-color: white;
-  color: black;
-  font-weight: bold;
-}
-
-.ctaButton:active {
-  transform: translateY(0.1875rem);
-}
-
-.ctaButton::after,
-.ctaButton::before {
-  border-radius: 0.1875rem;
-}
-
-.ctaButton:hover {
-  background-color: transparent;
-  box-shadow: none;
-  color: black;
-  cursor: pointer;
-}
-
-.ctaButton::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0.1875rem solid darken(black, 10%);
-  transition: opacity 0.3s, border 0.3s;
-}
-
-.ctaButton:hover::before {
-  opacity: 0;
-}
-
-.ctaButton::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: 0.1875rem solid black;
-  opacity: 0;
-  z-index: -1;
-  transform: scaleX(1.1) scaleY(1.3);
-  transition: transform 0.3s, opacity 0.3s;
-}
-
-.ctaButton:hover::after {
-  opacity: 1;
-  transform: scaleX(1) scaleY(1);
 }

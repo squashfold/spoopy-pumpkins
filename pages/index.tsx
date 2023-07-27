@@ -12,8 +12,8 @@ const IntroPage: React.FC = () => {
           explore their carbon footprints. Discover which food choices are the greenest and which ones leave the biggest
           carbon pawprints. The fate of the world is in your hands, or rather, on your plate!
         </p>
-        <Link className={styles.ctaButtonWrap} href="/game">
-          <button className={styles.ctaButton}>Let&apos;s play</button>
+        <Link className="ctaButtonWrap" href="/game">
+          <button className="ctaButton">Let&apos;s play</button>
         </Link>
       </div>
     </div>
