@@ -1,56 +1,74 @@
-.wrapper {
-  max-width: var(--max-width);
+.container {
+  position: relative;
   width: 100%;
-  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: #f0f0f0;
 }
 
-.container {
+.content {
+  margin-top: 10vh;
+  text-align: center;
+  max-width: 85vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-  text-align: center;
+  font-family: Inter;
 }
 
-.header {
-  font-size: 3rem;
-  margin-bottom: 2rem;
+.title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #000;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: normal;
+  margin: 2rem 0;
 }
 
-.description {
-  margin-bottom: 2rem;
+.text {
+  margin-bottom: 3rem;
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
-.cta {
+.ctaButtonWrap {
+  width: fit-content;
+}
+
+.ctaButton {
   position: relative;
   font-size: 1.25rem;
   transition: color 0.5s, transform 0.2s, background-color 0.2s;
   outline: none;
   border-radius: 0.1875rem;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2.5rem;
   border: 0.1875rem solid transparent;
   background-color: white;
   color: black;
   font-weight: bold;
 }
 
-.cta:active {
+.ctaButton:active {
   transform: translateY(0.1875rem);
 }
 
-.cta::after, .cta::before {
+.ctaButton::after,
+.ctaButton::before {
   border-radius: 0.1875rem;
 }
-  
-.cta:hover {
+
+.ctaButton:hover {
   background-color: transparent;
   box-shadow: none;
   color: black;
   cursor: pointer;
 }
 
-.cta::before {
+.ctaButton::before {
   content: "";
   position: absolute;
   top: 0;
@@ -61,11 +79,11 @@
   transition: opacity 0.3s, border 0.3s;
 }
 
-.cta:hover::before{
+.ctaButton:hover::before {
   opacity: 0;
 }
 
-.cta::after{
+.ctaButton::after {
   content: "";
   position: absolute;
   top: 0;
@@ -80,7 +98,7 @@
   transition: transform 0.3s, opacity 0.3s;
 }
 
-.cta:hover::after {
+.ctaButton:hover::after {
   opacity: 1;
   transform: scaleX(1) scaleY(1);
 }
