@@ -1,4 +1,5 @@
 import Head from 'next/head'
+// import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Game.module.css'
 
@@ -14,8 +15,26 @@ export default function Game() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <p>test</p>
+        <div className={styles.container}>
+          <p className={styles.metadata}>Score
+            <span className={styles.datum}>10</span>
+          </p>
+          <p className={styles.metadata}>Time Remaining
+            <span className={styles.datum}>10:10</span>
+          </p>
+        </div>
+        <h1 className={styles.header}>Which has the lowest impact?</h1>
+        <div className={styles.cards}>
+          <div className={styles.card}>
+            <img className={styles.image} src="https://source.unsplash.com/sf_1ZDA1YFw" alt="banana" width="599" height="420" />
+            <span className={styles.title}>Title</span>
+            <button className={styles.ctaButton}>Select</button>
+          </div>
+          <div className={styles.card}>
+            <img className={styles.image} src="https://source.unsplash.com/gDPaDDy6_WE" alt="apple" width="599" height="420" />
+            <span className={styles.title}>Title</span>
+            <button className={styles.ctaButton}>Select</button>
+          </div>
         </div>
       </main>
     </>
