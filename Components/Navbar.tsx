@@ -5,8 +5,8 @@ import styles from '../styles/Navbar.module.css';
 const Navbar: React.FC = () => {
     return (
         <nav className={styles.navbar}>
-            <Link href="/high-scores">
-                <button className={styles.highScoresButton}>High Scores</button>
+            <Link href="/leaderboard">
+                <button className={styles.leaderboardButton}>High Scores</button>
             </Link>
         </nav>
     );
