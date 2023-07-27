@@ -5,7 +5,7 @@
     justify-content: flex-end;
 }
 
-.highScoresButton {
+.leaderboardButton {
     font-size: 1.2rem;
     cursor: pointer;
     color: #000;
@@ -16,7 +16,7 @@
     transition: background-color 0.3s ease;
 }
 
-.highScoresButton:hover {
+.leaderboardButton:hover {
     background-color: #e7e7e7;
     color: #000;
 }
