@@ -8,9 +8,7 @@ const IntroPage: React.FC = () => {
       <div className={styles.content}>
         <h1 className={styles.title}>Welcome to GameName</h1>
         <p className={styles.text}>
-          Embark on a delicious adventure to save the planet! In GameName, you get to pick your favorite foods and
-          explore their carbon footprints. Discover which food choices are the greenest and which ones leave the biggest
-          carbon pawprints. The fate of the world is in your hands, or rather, on your plate!
+          We&apos;re on a mission to make eco-friendly decisions. Get ready to dive into an exciting game filled with yummy food choices! You&apos;ll be presented with two delicious options and it&apos;s your mission to choose the one with the lower carbon footprint. You&apos;ll have 10 seconds to make your decision. The more correct answers you rack up, the better! So, let&apos;s test your knowledge and see how many green points you can score!
         </p>
         <Link className="ctaButtonWrap" href="/game">
           <button className="ctaButton">Let&apos;s play</button>
