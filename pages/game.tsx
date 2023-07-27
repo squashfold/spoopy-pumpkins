@@ -26,12 +26,12 @@ export default function Game() {
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
           <div className={styles.card}>
-            <img className={styles.image} src="https://source.unsplash.com/sf_1ZDA1YFw" alt="banana" width="599" height="420" />
+            <img className={styles.image} src="https://source.unsplash.com/sf_1ZDA1YFw" alt="banana" width="599" height="420" loading="lazy" />
             <span className={styles.title}>Title</span>
             <button className={styles.ctaButton}>Select</button>
           </div>
           <div className={styles.card}>
-            <img className={styles.image} src="https://source.unsplash.com/gDPaDDy6_WE" alt="apple" width="599" height="420" />
+            <img className={styles.image} src="https://source.unsplash.com/gDPaDDy6_WE" alt="apple" width="599" height="420" loading="lazy" />
             <span className={styles.title}>Title</span>
             <button className={styles.ctaButton}>Select</button>
           </div>

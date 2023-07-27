@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Link from 'next/link'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 
@@ -18,7 +18,9 @@ export default function Home() {
         <div className={`${styles.container}`}>
           <h1 className={`${styles.header}`}>Lorem ipsum dolor sit amet, consectitour adipiscing elit.</h1>
           <p className={`${styles.description}`}>Lorem ipsum dolor sit amet, consectitour adipiscing elit.</p>
-          <button className={`${styles.cta}`}>Let&apos;s play!</button>
+          <Link href="/game">
+            <button className={`${styles.cta}`}>Let&apos;s play!</button>
+          </Link>
         </div>
       </main>
     </>
