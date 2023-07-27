@@ -13,7 +13,7 @@ const IntroPage: React.FC = () => {
           carbon pawprints. The fate of the world is in your hands, or rather, on your plate!
         </p>
         <Link className={styles.ctaButtonWrap} href="/game">
-          <button className={styles.ctaButton}>Let's play</button>
+          <button className={styles.ctaButton}>Let&apos;s play</button>
         </Link>
       </div>
     </div>
