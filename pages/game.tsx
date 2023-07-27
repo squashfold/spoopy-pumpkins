@@ -1,11 +1,11 @@
 import Head from 'next/head'
-// import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Game.module.css'
+import Card from './card'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Game() {
+const GamePage: React.FC = () => {
   return (
     <>
       <Head>
@@ -25,19 +25,13 @@ export default function Game() {
         </div>
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
-          <div className={styles.card}>
-            <img className={styles.image} src="https://source.unsplash.com/sf_1ZDA1YFw" alt="banana" width="599" height="420" loading="lazy" />
-            <span className={styles.title}>Title</span>
-            <button className="ctaButton --small">Select</button>
-          </div>
+          <Card />
           <span className={styles.separator}>vs</span>
-          <div className={styles.card}>
-            <img className={styles.image} src="https://source.unsplash.com/gDPaDDy6_WE" alt="apple" width="599" height="420" loading="lazy" />
-            <span className={styles.title}>Title</span>
-            <button className="ctaButton --small">Select</button>
-          </div>
+          <Card />
         </div>
       </main>
     </>
   )
 }
+
+export default GamePage;
