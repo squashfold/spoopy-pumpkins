@@ -42,18 +42,41 @@ const getRandomItems = (): [FoodItem, FoodItem] => {
 
 const GamePage: React.FC = () => {
   const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
+  const [score, setScore] = useState<number>(0);
+  const [highlighted, setHighlighted] = useState<string[]>(['','']);
 
   const handleNewRound = () => {
-    try {
-      const [item1, item2] = getRandomItems();
-      setRandomItems([item1, item2]);
-    } catch (error) {
-      console.log("error.message");
-    }
+    setTimeout(() => {
+      try {
+        const [item1, item2] = getRandomItems();
+        setRandomItems([item1, item2]);
+        setHighlighted(['',''])
+      } catch (error) {
+        console.log("error.message");
+      }
+    }, 500); // 500 milliseconds (0.5 seconds)
+    
   }
 
-  const submitAnswer = (event: any, answer: number) => {
-    console.log(answer);
+  const submitAnswer = (event: any, value: number, item: number) => {
+    // Scores
+    if (item === 0) {
+      if (value < randomItems[1].value) {
+        setScore(score + 1);
+        setHighlighted(['green','red'])
+      } else {
+        setScore(score - 1);
+        setHighlighted(['red','green'])
+      }
+    } else {
+      if (value < randomItems[0].value) {
+        setScore(score + 1);
+        setHighlighted(['red','green'])
+      } else {
+        setScore(score - 1); 
+        setHighlighted(['green','red'])
+      }
+    }
     handleNewRound();
   }
 
@@ -72,7 +95,7 @@ const GamePage: React.FC = () => {
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.container}>
           <p className={styles.metadata}>Score
-            <span className={styles.datum}>10</span>
+            <span className={styles.datum}>{score}</span>
           </p>
           <p className={styles.metadata}>Time Remaining
             <span className={styles.datum}>10:10</span>
@@ -80,9 +103,9 @@ const GamePage: React.FC = () => {
         </div>
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
-          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={1}/>
+          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} highlighted={highlighted[0]}/>
           <span className={styles.separator}>vs</span>
-          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} />
+          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} highlighted={highlighted[1]}/>
         </div>
       </main>
     </>

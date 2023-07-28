@@ -1,6 +1,6 @@
 type FoodItem = {
   name?: string
-  value?: number
+  value: number
 }
   
   export default FoodItem
