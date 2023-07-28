@@ -5,7 +5,7 @@ import styles from '@/styles/FoodItem.module.css'
 const FoodItemOption: React.FC<FoodItem|undefined> = (foodItem) => {
   return (
     <button className={styles.foodItem} type='button'>
-      <Image className={styles.image} src={`/images/game/${foodItem?.name}.jpg`} alt="" width="599" height="420" />
+      <Image className={styles.image} src={`/images/game/${foodItem?.name}.jpg`} alt="" width="599" height="420" loading='eager' />
       <span className={styles.name}>{foodItem?.name || 'TEMP'}</span>
     </button>
   )
