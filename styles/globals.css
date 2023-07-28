@@ -121,17 +121,3 @@ a[class] {
   opacity: 1;
   transform: scaleX(1) scaleY(1);
 }
-
-.unblur-transition {
-  animation: blur-anim ease-in 2s;
-  animation-direction: reverse;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes blur-anim {
-  100% {
-    filter: blur(100px);
-    opacity: 0;
-  }
-}

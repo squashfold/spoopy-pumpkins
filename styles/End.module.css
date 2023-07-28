@@ -104,3 +104,17 @@
         opacity: 0.5;
     }
 }
+
+.unblur {
+    animation: blur-anim ease-in 1s;
+    animation-direction: reverse;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes blur-anim {
+    100% {
+        filter: blur(50px);
+        opacity: 0;
+    }
+}

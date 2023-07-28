@@ -25,18 +25,8 @@ const EndPage: React.FC = () => {
 
 
     useEffect(() => {
-        document.body.classList.add('unblur-transition');
-
-        const container = document.querySelector('#end-container');
-        if (container) {
-            container.classList.add('unblur-transition');
-        }
-
         const contentTimeout = setTimeout(() => {
             setShowContent(true);
-            if (container) {
-                container.classList.remove('unblur-transition');
-            }
         }, 500);
 
         const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
@@ -48,7 +38,7 @@ const EndPage: React.FC = () => {
     return (
         <div>
             {showContent && (
-                <div className={`${styles.container} ${inter.className}`} id="end-container">
+                <div className={`${styles.container} ${styles.unblur} ${inter.className}`}>
                     <div className={styles.content}>
                         <div>
                             <h1 className={styles.title}>Thanks for playing!</h1>
