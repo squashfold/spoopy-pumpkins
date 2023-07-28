@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Game.module.css';
 import Card from '../Components/FoodItemCard';
-import Items from '../Components/Items';
 
 import type FoodItem from '../interfaces/foodItem';
 const originalItems: FoodItem[] = require('../cache/foodData').data;
@@ -85,7 +84,6 @@ const GamePage: React.FC = () => {
           <span className={styles.separator}>vs</span>
           <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} />
         </div>
-        <Items />
       </main>
     </>
   )
