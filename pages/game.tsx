@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Game.module.css';
 import Card from '../Components/FoodItemCard';
+import Modal from './modal';
 
 import type FoodItem from '../interfaces/foodItem';
 const originalItems: FoodItem[] = require('../cache/foodData').data;
@@ -44,9 +45,11 @@ const GamePage: React.FC = () => {
   const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
   const [score, setScore] = useState<number>(0);
   const [remainingTime, setRemainingTime] = useState(30); // Set how long the game should be (30s)
-  const [result, setResult] = useState<string[]>(['','']);
+  const [result, setResult] = useState<string[]>(['', '']);
   const [timerActive, setTimerActive] = useState(true);
   const [gameEnded, setGameEnded] = useState(false); // New state to track if the game has ended
+  const [showModal, setShowModal] = useState(false);
+  const [answer, setAnswer] = useState(false)
 
   const startTimer = () => {
     // Start the timer only if it's active and remainingTime is greater than 0
@@ -72,7 +75,7 @@ const GamePage: React.FC = () => {
       try {
         const [item1, item2] = getRandomItems();
         setRandomItems([item1, item2]);
-        setResult(['',''])
+        setResult(['', ''])
       } catch (error) {
         console.log("error.message");
       }
@@ -80,26 +83,44 @@ const GamePage: React.FC = () => {
 
   }
 
-  const submitAnswer = (event: any, value: number, item: number) => {
+  type CardAnswer = { index: number, value: number };
+
+  const compareValues = (selectedCard: CardAnswer, randomItems: FoodItem[]) => {
     // Scores
-    if (item === 0) {
-      if (value < randomItems[1].value) {
+    const [firstItem, secondItem] = randomItems;
+    const choseFirstCard = selectedCard.index === 0;
+
+    if (choseFirstCard) {
+      if (selectedCard.value < secondItem.value) {
         setScore(score + 5);
-        setResult(['correct','incorrect'])
+        setAnswer(true)
+        return ['correct', 'incorrect'];
       } else {
-        setResult(['incorrect','correct'])
-        // setScore(score - 2);
+        setAnswer(false)
+        return ['incorrect', 'correct'];
       }
     } else {
-      if (value < randomItems[0].value) {
-        setResult(['incorrect','correct'])
+      if (selectedCard.value < firstItem.value) {
         setScore(score + 5);
+        setAnswer(true)
+        return ['incorrect', 'correct'];
       } else {
-        setResult(['correct','incorrect'])
-        // setScore(score - 2);
+        setAnswer(false)
+        return ['correct', 'incorrect'];
       }
     }
-    handleNewRound();
+  };
+
+  const submitAnswer = (event: any, value: number, item: number) => {
+    const selectedCard = { index: item, value: value }
+    setResult(compareValues(selectedCard, randomItems));
+    setTimerActive(false);
+    setShowModal(true);
+    setTimeout(() => {
+      setShowModal(false);
+      handleNewRound();
+      setTimerActive(true)
+    }, 3000);
   }
 
   useEffect(() => {
@@ -147,11 +168,12 @@ const GamePage: React.FC = () => {
         </div>
         <h1 className={styles.header}>Which has the smaller carbon footprint?</h1>
         <div className={styles.cards}>
-          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} result={result[0]}/>
+          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} result={result[0]} />
           <span className={styles.separator}>vs</span>
-          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} result={result[1]}/>
+          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} result={result[1]} />
         </div>
       </main>
+      {showModal && <Modal isCorrect={answer} result={result} items={randomItems}/>}
     </>
   )
 }
