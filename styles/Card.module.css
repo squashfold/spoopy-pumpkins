@@ -1,4 +1,5 @@
 .card {
+  --card-background: var(--color-background);
   flex-grow: none;
   position: relative;
   display: flex;
@@ -9,7 +10,7 @@
   aspect-ratio: 1;
   overflow: hidden;
   cursor: pointer;
-  background: var(--color-background);
+  background: var(--card-background);
   color: var(--color-text);
   transition: scale 0.3s ease-in-out;
 }
@@ -25,17 +26,17 @@
 
 .card[data-result="incorrect"] {
   border-color: red;
-  background: lightcoral;
+  --card-background: lightcoral;
 }
 
 .card[data-result="correct"] {
   border-color: green;
-  background: lightgreen;
+  --card-background: lightgreen;
 }
 
 .card:not([data-result]):hover,
 .card:not([data-result]):focus-visible {
-  background: var(--color-background-highlight);
+  --card-background: var(--color-background-highlight);
 }
 
 .image {
@@ -47,4 +48,14 @@
   font-size: 1.5rem;
   font-weight: bold;
   padding-block: 1rem;
+}
+
+.card[data-result] .result {
+  position: absolute;
+  display: block;
+  inset: 50% auto auto 50%;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  translate: -50% -50%;
+  background: var(--card-background);
 }
