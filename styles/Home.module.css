@@ -1,7 +1,6 @@
 .container {
   max-width: min(120ch, 90%);
   margin-inline: auto;
-  font-family: Inter;
 }
 
 .title {

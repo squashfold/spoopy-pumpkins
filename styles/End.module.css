@@ -1,0 +1,104 @@
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    margin-top: 1rem;
+}
+
+.content {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+    padding: 3rem;
+    min-height: 50vh;
+}
+
+.scoreText {
+    font-size: 1.5rem;
+}
+
+.pulsating {
+    animation: pulsate 1.5s ease-out;
+    animation-iteration-count: infinite;
+    opacity: 0.5;
+    font-weight: bold;
+}
+
+.tree {
+    padding: 1rem;
+    grid-column: 2;
+    height: 100%;
+    padding-top: 4rem;
+    max-width: 400px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 10px;
+    }
+
+    .content {
+        grid-row: 1;
+        width: 100%;
+        margin: 2rem 0 0 0;
+        padding: 0;
+        min-height: 30vh;
+        justify-content: space-between;
+    }
+
+    .tree {
+        margin: auto;
+        grid-row: 2;
+        grid-column: 1;
+        width: 100%;
+    }
+}
+
+.tree>.terrain {
+    animation: fly 1.5s linear infinite alternate;
+}
+
+.tree>.shadow {
+    animation: grow 1.5s linear infinite alternate;
+    transform-origin: center center;
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(100px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(0.8);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1.0;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
