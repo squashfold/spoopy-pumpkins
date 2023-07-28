@@ -33,7 +33,10 @@ const HighScores: React.FC = () => {
         });
         const last20Scores = existingScores.slice(0, 20);
         setScores(last20Scores);
-        setScores((scores) => [...scores, lastScore]);
+        // Add newest score at the bottom if it's not already in the top 20
+        if (!last20Scores.some((score: scoreEntry) => score.score === lastScore.score)) {
+            setScores((scores) => [...scores, lastScore]);
+        }
 
     }, []);
 
