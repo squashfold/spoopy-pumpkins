@@ -16,3 +16,13 @@
   font-weight: bold;
   margin: 1rem 0;
 }
+
+.red {
+  border: 2px solid red;
+  background-color: lightcoral;
+}
+
+.green {
+  border: 2px solid green;
+  background-color: lightgreen;
+}
