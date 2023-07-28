@@ -143,7 +143,7 @@ const GamePage: React.FC = () => {
             <span className={styles.datum}>{remainingTime}</span>
           </p>
         </div>
-        <h1 className={styles.header}>Which has the lowest impact?</h1>
+        <h1 className={styles.header}>Which has the smaller carbon footprint?</h1>
         <div className={styles.cards}>
           <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} result={result[0]}/>
           <span className={styles.separator}>vs</span>
