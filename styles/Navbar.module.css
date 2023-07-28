@@ -1,11 +1,11 @@
 .navbar {
     background: var(--color-background-header);
-    padding: 1rem;
+    padding: .7rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
-.leaderboardButton {
+.navButton {
     font-size: 1.2rem;
     cursor: pointer;
     color: inherit;
