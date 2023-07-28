@@ -1,20 +1,25 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  position: relative;
-  z-index: 1;
+  align-items: center;
+  border: 3px solid var(--color-text);
+  border-radius: 0.1875rem;
+  aspect-ratio: 1;
+  overflow: hidden;
 }
 
 .image {
-  border: 3px solid black;
-  border-radius: 0.1875rem;
+  object-fit: cover;
+  max-width: 100%;
+  height: auto;
 }
 
 .title {
+  display: block;
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 1rem 0;
+  padding-block: 1rem;
 }
 
 .red {
