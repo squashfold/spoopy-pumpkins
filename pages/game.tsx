@@ -43,7 +43,7 @@ const getRandomItems = (): [FoodItem, FoodItem] => {
 const GamePage: React.FC = () => {
   const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
   const [score, setScore] = useState<number>(0);
-  const [highlighted, setHighlighted] = useState<string[]>(['','']);
+  const [result, setResult] = useState<string[]>(['','']);
   const [remainingTime, setRemainingTime] = useState(10); // Set how long the game should be (10s)
   const [timerActive, setTimerActive] = useState(true);
   const [gameEnded, setGameEnded] = useState(false); // New state to track if the game has ended
@@ -72,7 +72,7 @@ const GamePage: React.FC = () => {
       try {
         const [item1, item2] = getRandomItems();
         setRandomItems([item1, item2]);
-        setHighlighted(['',''])
+        setResult(['',''])
       } catch (error) {
         console.log("error.message");
       }
@@ -85,18 +85,18 @@ const GamePage: React.FC = () => {
     if (item === 0) {
       if (value < randomItems[1].value) {
         setScore(score + 1);
-        setHighlighted(['green','red'])
+        setResult(['correct','incorrect'])
       } else {
         setScore(score - 1);
-        setHighlighted(['red','green'])
+        setResult(['incorrect','correct'])
       }
     } else {
       if (value < randomItems[0].value) {
         setScore(score + 1);
-        setHighlighted(['red','green'])
+        setResult(['incorrect','correct'])
       } else {
         setScore(score - 1);
-        setHighlighted(['green','red'])
+        setResult(['correct','incorrect'])
       }
     }
     handleNewRound();
@@ -145,9 +145,9 @@ const GamePage: React.FC = () => {
         </div>
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
-          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} highlighted={highlighted[0]}/>
+          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} result={result[0]}/>
           <span className={styles.separator}>vs</span>
-          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} highlighted={highlighted[1]}/>
+          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} result={result[1]}/>
         </div>
       </main>
     </>
