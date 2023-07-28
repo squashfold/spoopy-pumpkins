@@ -87,7 +87,7 @@ const GamePage: React.FC = () => {
         setScore(score + 1);
         setHighlighted(['green', 'red'])
       } else {
-        setScore(score - 1);
+        setScore(score - 2);
         setHighlighted(['red', 'green'])
       }
     } else {
@@ -95,7 +95,7 @@ const GamePage: React.FC = () => {
         setScore(score + 1);
         setHighlighted(['red', 'green'])
       } else {
-        setScore(score - 1);
+        setScore(score - 2);
         setHighlighted(['green', 'red'])
       }
     }
