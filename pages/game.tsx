@@ -44,7 +44,7 @@ const GamePage: React.FC = () => {
   const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
   const [score, setScore] = useState<number>(0);
   const [highlighted, setHighlighted] = useState<string[]>(['','']);
-  const [remainingTime, setRemainingTime] = useState(10); // Set how long the game should be
+  const [remainingTime, setRemainingTime] = useState(10); // Set how long the game should be (10s)
   const [timerActive, setTimerActive] = useState(true);
   const [gameEnded, setGameEnded] = useState(false); // New state to track if the game has ended
 
