@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '@/styles/HighScores.module.css';
 
 interface scoreEntry {
+    index: number;
     score: number;
     datetime: string;
 }
@@ -9,6 +10,7 @@ interface scoreEntry {
 const HighScores: React.FC = () => {
 
     const [scores, setScores] = useState<scoreEntry[]>([]);
+    const [lastScore, setLastScore] = useState<scoreEntry | null>(null);
 
     // Helper function to format the datetime in a human-readable format
     const formatDate = (datetime: string) => {
@@ -24,9 +26,15 @@ const HighScores: React.FC = () => {
 
     useEffect(() => {
         const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
-        // extract the 20 more recent scores
-        const last20Scores = existingScores.reverse().slice(0, 20);
+        const lastScore = existingScores[existingScores.length - 1];
+        existingScores.sort((a: scoreEntry, b: scoreEntry) => b.score - a.score);
+        existingScores.forEach((score: scoreEntry, index: number) => {
+            score.index = index + 1;
+        });
+        const last20Scores = existingScores.slice(0, 20);
         setScores(last20Scores);
+        setScores((scores) => [...scores, lastScore]);
+
     }, []);
 
     return (
@@ -44,7 +52,7 @@ const HighScores: React.FC = () => {
                     <tbody>
                         {scores.map((entry, index) => (
                             <tr key={index}>
-                                <td>{index + 1}</td>
+                                <td>{entry.index}</td>
                                 <td>{`${entry.score} ${entry.score === 1 ? 'Point' : 'Points'}`}</td>
                                 <td>{formatDate(entry.datetime)}</td>
                             </tr>
