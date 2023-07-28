@@ -64,11 +64,8 @@ const GamePage: React.FC = () => {
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
           <Card item={randomItems[0]} submitAnswer={submitAnswer} i={1}/>
-          Item 1:
           <span className={styles.separator}>vs</span>
           <Card item={randomItems[1]} submitAnswer={submitAnswer} i={1} />
-          
-          {/* <button onClick={(event) => submitAnswer(event, 2)}>Option 2</button> */}
         </div>
         <Items />
       </main>
