@@ -44,6 +44,28 @@ const GamePage: React.FC = () => {
   const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
   const [score, setScore] = useState<number>(0);
   const [highlighted, setHighlighted] = useState<string[]>(['','']);
+  const [remainingTime, setRemainingTime] = useState(10);
+  const [timerActive, setTimerActive] = useState(true);
+  const [gameEnded, setGameEnded] = useState(false); // New state to track if the game has ended
+
+  const startTimer = () => {
+    // Start the timer only if it's active and remainingTime is greater than 0
+    if (timerActive && remainingTime > 0) {
+      const timer = setTimeout(() => {
+        setRemainingTime((prevTime) => prevTime - 1);
+      }, 1000);
+  
+      // Clear the timer when component unmounts or when the game ends
+      return () => clearTimeout(timer);
+    }
+  
+    // End the game if remainingTime reaches 0
+    if (remainingTime === 0 && !gameEnded) {
+      setTimerActive(false);
+      setGameEnded(true); // Mark the game as ended
+      handleGameEnd();
+    }
+  };
 
   const handleNewRound = () => {
     setTimeout(() => {
@@ -54,7 +76,7 @@ const GamePage: React.FC = () => {
       } catch (error) {
         console.log("error.message");
       }
-    }, 500); // 500 milliseconds (0.5 seconds)
+    }, 1000);
     
   }
 
@@ -81,8 +103,28 @@ const GamePage: React.FC = () => {
   }
 
   useEffect(() => {
-    setRandomItems(getRandomItems());
-  }, []);
+    // setRandomItems(getRandomItems());
+    startTimer();
+  }, [remainingTime, timerActive]);
+
+  const handleGameEnd = () => {
+      window.alert('Game ended! The scores are saved to localstorage');
+    
+      // Step 1: Retrieve existing scores from localStorage and parse it into an array
+      const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
+    
+      // Step 2: Create a new score object containing the score and current datetime
+      const newScore = {
+        score,
+        datetime: new Date().toISOString(), // Store the datetime in ISO format
+      };
+    
+      // Step 3: Add the new score object to the existing scores array
+      existingScores.push(newScore);
+    
+      // Step 4: Save the updated scores array back to localStorage
+      localStorage.setItem('scores', JSON.stringify(existingScores));
+  };
 
   return (
     <>
@@ -98,7 +140,7 @@ const GamePage: React.FC = () => {
             <span className={styles.datum}>{score}</span>
           </p>
           <p className={styles.metadata}>Time Remaining
-            <span className={styles.datum}>10:10</span>
+            <span className={styles.datum}>{remainingTime}</span>
           </p>
         </div>
         <h1 className={styles.header}>Which has the lowest impact?</h1>
