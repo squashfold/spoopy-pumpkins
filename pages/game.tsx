@@ -1,9 +1,6 @@
+import dynamic from 'next/dynamic.js';
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Game.module.css'
-import Card from './card'
-
-const inter = Inter({ subsets: ['latin'] })
+const Game = dynamic(() => import('@/Components/Game'), { ssr: false })
 
 const GamePage: React.FC = () => {
   return (
@@ -14,22 +11,7 @@ const GamePage: React.FC = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.container}>
-          <p className={styles.metadata}>Score
-            <span className={styles.datum}>10</span>
-          </p>
-          <p className={styles.metadata}>Time Remaining
-            <span className={styles.datum}>10:10</span>
-          </p>
-        </div>
-        <h1 className={styles.header}>Which has the lowest impact?</h1>
-        <div className={styles.cards}>
-          <Card />
-          <span className={styles.separator}>vs</span>
-          <Card />
-        </div>
-      </main>
+      <Game />
     </>
   )
 }
