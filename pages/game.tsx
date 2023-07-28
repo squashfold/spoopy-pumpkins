@@ -1,11 +1,49 @@
-import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Game.module.css'
-import Card from './card'
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { Inter } from 'next/font/google';
+import styles from '@/styles/Game.module.css';
+import Card from './card';
+import Items from '../Components/Items';
 
-const inter = Inter({ subsets: ['latin'] })
+import type FoodItem from '../interfaces/foodItem';
+const originalItems: FoodItem[] = require('../cache/foodData').data;
+const inter = Inter({ subsets: ['latin'] });
+
+const getRandomItems = (): [FoodItem, FoodItem] => {
+  if (originalItems.length < 2) {
+    throw new Error('Not enough items to play the game.');
+  }
+
+  const randomIndex1 = Math.floor(Math.random() * originalItems.length);
+  const item1 = originalItems.splice(randomIndex1, 1)[0];
+
+  let randomIndex2 = Math.floor(Math.random() * (originalItems.length - 1));
+  const item2 = originalItems.splice(randomIndex2, 1)[0];
+
+  return [item1, item2];
+}
 
 const GamePage: React.FC = () => {
+  const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
+
+  const handleNewRound = () => {
+    try {
+      const [item1, item2] = getRandomItems();
+      setRandomItems([item1, item2]);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  const submitAnswer = (event: any, answer: number) => {
+    console.log(answer);
+    handleNewRound();
+  }
+
+  useEffect(() => {
+    setRandomItems(getRandomItems());
+  }, []);
+
   return (
     <>
       <Head>
@@ -25,10 +63,18 @@ const GamePage: React.FC = () => {
         </div>
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
-          <Card />
+          <Card item={randomItems[0]}/>
+          Item 1:
+          {randomItems[0].name}
+          {randomItems[0].value}
           <span className={styles.separator}>vs</span>
-          <Card />
+          <Card item={randomItems[1]} />
+          {randomItems[1].name}
+          {randomItems[1].value}
+          <button onClick={(event) => submitAnswer(event, 1)}>Option 1</button>
+          <button onClick={(event) => submitAnswer(event, 2)}>Option 2</button>
         </div>
+        <Items />
       </main>
     </>
   )
