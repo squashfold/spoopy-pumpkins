@@ -31,7 +31,7 @@ const GamePage: React.FC = () => {
       const [item1, item2] = getRandomItems();
       setRandomItems([item1, item2]);
     } catch (error) {
-      console.log(error.message);
+      console.log("error.message");
     }
   }
 
