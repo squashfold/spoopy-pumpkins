@@ -1,11 +1,66 @@
-import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Game.module.css'
-import Card from './card'
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { Inter } from 'next/font/google';
+import styles from '@/styles/Game.module.css';
+import Card from '../Components/FoodItemCard';
 
-const inter = Inter({ subsets: ['latin'] })
+import type FoodItem from '../interfaces/foodItem';
+const originalItems: FoodItem[] = require('../cache/foodData').data;
+const inter = Inter({ subsets: ['latin'] });
+
+// Pre-shuffle the originalItems array
+const shuffledItems = [...originalItems];
+for (let i = shuffledItems.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [shuffledItems[i], shuffledItems[j]] = [shuffledItems[j], shuffledItems[i]];
+}
+
+let currentIndex = 0;
+
+const getRandomItems = (): [FoodItem, FoodItem] => {
+  if (shuffledItems.length < 2) {
+    throw new Error('Not enough items to play the game.');
+  }
+
+  // Get the next two items from the shuffled array
+  const item1 = shuffledItems[currentIndex];
+  const item2 = shuffledItems[currentIndex + 1];
+  currentIndex += 2;
+
+  // If we reach the end of the array, reshuffle and reset the currentIndex
+  if (currentIndex >= shuffledItems.length) {
+    currentIndex = 0;
+    // Re-shuffle the array
+    for (let i = shuffledItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledItems[i], shuffledItems[j]] = [shuffledItems[j], shuffledItems[i]];
+    }
+  }
+
+  return [item1, item2];
+}
 
 const GamePage: React.FC = () => {
+  const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
+
+  const handleNewRound = () => {
+    try {
+      const [item1, item2] = getRandomItems();
+      setRandomItems([item1, item2]);
+    } catch (error) {
+      console.log("error.message");
+    }
+  }
+
+  const submitAnswer = (event: any, answer: number) => {
+    console.log(answer);
+    handleNewRound();
+  }
+
+  useEffect(() => {
+    setRandomItems(getRandomItems());
+  }, []);
+
   return (
     <>
       <Head>
@@ -25,9 +80,9 @@ const GamePage: React.FC = () => {
         </div>
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
-          <Card />
+          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={1}/>
           <span className={styles.separator}>vs</span>
-          <Card />
+          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} />
         </div>
       </main>
     </>
