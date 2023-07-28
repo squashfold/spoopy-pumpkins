@@ -16,29 +16,29 @@ const Leaderboard: React.FC = () => {
     ];
 
     return (
-        <div className={styles.container}>
-            <div className={styles.content}>
-                <h1 className={styles.title}>Leaderboard</h1>
-                <table className={styles.leaderboard}>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Score</th>
+        <main>
+          <div className={styles.content}>
+            <h1 className={styles.title}>Leaderboard</h1>
+            <table className={styles.leaderboard}>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {leaderboardData.map((entry, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{entry.name}</td>
+                            <td>{entry.score}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {leaderboardData.map((entry, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{entry.name}</td>
-                                <td>{entry.score}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    ))}
+                </tbody>
+            </table>
+          </div>
+        </main>
     );
 };
 

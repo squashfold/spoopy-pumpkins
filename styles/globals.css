@@ -39,6 +39,13 @@ body {
   line-height: 1.5;
 }
 
+main {
+  max-width: min(120ch, 90%);
+  margin-inline: auto;
+  font-family: Inter;
+  container: main / inline-size;
+}
+
 a[class] {
   color: inherit;
   text-decoration: none;

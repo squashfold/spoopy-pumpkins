@@ -54,11 +54,11 @@ const GamePage: React.FC = () => {
       const timer = setTimeout(() => {
         setRemainingTime((prevTime) => prevTime - 1);
       }, 1000);
-  
+
       // Clear the timer when component unmounts or when the game ends
       return () => clearTimeout(timer);
     }
-  
+
     // End the game if remainingTime reaches 0
     if (remainingTime === 0 && !gameEnded) {
       setTimerActive(false);
@@ -77,7 +77,7 @@ const GamePage: React.FC = () => {
         console.log("error.message");
       }
     }, 1000);
-    
+
   }
 
   const submitAnswer = (event: any, value: number, item: number) => {
@@ -95,7 +95,7 @@ const GamePage: React.FC = () => {
         setScore(score + 1);
         setHighlighted(['red','green'])
       } else {
-        setScore(score - 1); 
+        setScore(score - 1);
         setHighlighted(['green','red'])
       }
     }
@@ -109,19 +109,19 @@ const GamePage: React.FC = () => {
 
   const handleGameEnd = () => {
       window.alert('Game ended! The scores are saved to localstorage');
-    
+
       // Step 1: Retrieve existing scores from localStorage and parse it into an array
       const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
-    
+
       // Step 2: Create a new score object containing the score and current datetime
       const newScore = {
         score,
         datetime: new Date().toISOString(), // Store the datetime in ISO format
       };
-    
+
       // Step 3: Add the new score object to the existing scores array
       existingScores.push(newScore);
-    
+
       // Step 4: Save the updated scores array back to localStorage
       localStorage.setItem('scores', JSON.stringify(existingScores));
   };
@@ -135,7 +135,7 @@ const GamePage: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.container}>
+        <div className={styles.status}>
           <p className={styles.metadata}>Score
             <span className={styles.datum}>{score}</span>
           </p>
