@@ -4,17 +4,17 @@
   text-align: center;
   position: relative;
   z-index: 1;
-}
-
-.image {
-  border: 3px solid black;
+  border: 2px solid var(--color-dark);
+  cursor: pointer;
   border-radius: 0.1875rem;
 }
 
 .title {
+  width: 100%;
   font-size: 1.5rem;
   font-weight: bold;
   margin: 1rem 0;
+  text-align: center;
 }
 
 .red {
