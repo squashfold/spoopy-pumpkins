@@ -12,11 +12,11 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ item, submitAnswer, i }) => {
   return (
     <>
-      <div className={styles.card}>
+      <button onClick={(event) => submitAnswer(event, i)} className={styles.card}>
         <Image className={styles.image} src={`/images/game/${item?.name}.jpg`} alt="" width="599" height="420" loading='eager' />
         <span className={styles.title}>{item.name ? item.name : 'Item name'}</span>
-        <button className="ctaButton --small" onClick={(event) => submitAnswer(event, i)}>Select</button>
-      </div>
+        <span className="ctaButton --small">Select</span>
+      </button>
     </>
   )
 }
