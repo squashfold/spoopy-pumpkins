@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Game.module.css';
-import Card from './card';
+import Card from '../Components/card';
 import Items from '../Components/Items';
 
 import type FoodItem from '../interfaces/foodItem';
@@ -63,9 +63,9 @@ const GamePage: React.FC = () => {
         </div>
         <h1 className={styles.header}>Which has the lowest impact?</h1>
         <div className={styles.cards}>
-          <Card item={randomItems[0]} submitAnswer={submitAnswer} i={1}/>
+          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={1}/>
           <span className={styles.separator}>vs</span>
-          <Card item={randomItems[1]} submitAnswer={submitAnswer} i={1} />
+          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} />
         </div>
         <Items />
       </main>
