@@ -6,7 +6,7 @@
   padding: 4rem;
 }
 
-.container {
+.status {
   display: flex;
   margin-bottom: 2rem;
   gap: 2rem;
@@ -25,31 +25,46 @@
 }
 
 .header {
-  font-size: 3rem;
+  font-size: calc(2rem);
 }
 
 .cards {
   display: flex;
+  flex-direction: column;
   margin-top: 2rem;
   gap: 2rem;
   position: relative;
+  max-width: 100%;
 }
 
 .separator {
-  height: 8rem;
-  width: 8rem;
+  position: absolute;
+  inset: 50%;
+  translate: -50% -50%;
   border-radius: 50%;
   color: var(--color-text);
   background: var(--color-background);
   text-align: center;
-  font-size: 3rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 5rem;
-  left: calc(599px - 3rem);
   z-index: 2;
+  height: 4rem;
+  width: 4rem;
+  font-size: 1.5rem;
 }
 
+
+@container main (min-width: 480px) {
+  .cards {
+    flex-direction: row;
+  }
+
+  .separator {
+    inset: 50%;
+    height: 8rem;
+    width: 8rem;
+    font-size: 3rem;
+  }
+}

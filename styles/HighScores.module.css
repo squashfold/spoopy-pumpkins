@@ -1,23 +1,16 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--color-background-accent);
-}
-
 .content {
     max-width: 800px;
+    margin: 2rem auto;
     padding: 2rem;
-    border: 1px solid #ccc;
+    border: 1px solid currentColor;
     border-radius: 8px;
-    background: inherit;
+    background: var(--color-background-container);
     box-shadow: 0 4px 6px rgb(var(--color-text) 0.1);
 }
 
 .title {
     font-size: 2rem;
     margin-bottom: 1rem;
-    text-align: left;
     color: var(--color-text);
     font-family: Inter;
     font-size: 2.5rem;

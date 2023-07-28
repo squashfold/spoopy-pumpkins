@@ -43,8 +43,8 @@ const getRandomItems = (): [FoodItem, FoodItem] => {
 const GamePage: React.FC = () => {
   const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
   const [score, setScore] = useState<number>(0);
-  const [highlighted, setHighlighted] = useState<string[]>(['', '']);
   const [remainingTime, setRemainingTime] = useState(30); // Set how long the game should be (30s)
+  const [result, setResult] = useState<string[]>(['','']);
   const [timerActive, setTimerActive] = useState(true);
   const [gameEnded, setGameEnded] = useState(false); // New state to track if the game has ended
 
@@ -72,7 +72,7 @@ const GamePage: React.FC = () => {
       try {
         const [item1, item2] = getRandomItems();
         setRandomItems([item1, item2]);
-        setHighlighted(['', ''])
+        setResult(['',''])
       } catch (error) {
         console.log("error.message");
       }
@@ -85,18 +85,18 @@ const GamePage: React.FC = () => {
     if (item === 0) {
       if (value < randomItems[1].value) {
         setScore(score + 5);
-        setHighlighted(['green', 'red'])
+        setResult(['correct','incorrect'])
       } else {
+        setResult(['incorrect','correct'])
         // setScore(score - 2);
-        setHighlighted(['red', 'green'])
       }
     } else {
       if (value < randomItems[0].value) {
+        setResult(['incorrect','correct'])
         setScore(score + 5);
-        setHighlighted(['red', 'green'])
       } else {
+        setResult(['correct','incorrect'])
         // setScore(score - 2);
-        setHighlighted(['green', 'red'])
       }
     }
     handleNewRound();
@@ -137,7 +137,7 @@ const GamePage: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.container}>
+        <div className={styles.status}>
           <p className={styles.metadata}>Score
             <span className={styles.datum}>{score}</span>
           </p>
@@ -145,11 +145,11 @@ const GamePage: React.FC = () => {
             <span className={styles.datum}>{remainingTime}</span>
           </p>
         </div>
-        <h1 className={styles.header}>Which has the lowest impact?</h1>
+        <h1 className={styles.header}>Which has the smaller carbon footprint?</h1>
         <div className={styles.cards}>
-          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} highlighted={highlighted[0]} />
+          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} result={result[0]}/>
           <span className={styles.separator}>vs</span>
-          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} highlighted={highlighted[1]} />
+          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} result={result[1]}/>
         </div>
       </main>
     </>
