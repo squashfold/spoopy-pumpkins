@@ -7,12 +7,13 @@ interface CardProps {
   item: FoodItem;
   submitAnswer: any;
   i: number;
+  highlighted: string;
 }
 
-const Card: React.FC<CardProps> = ({ item, submitAnswer, i }) => {
+const Card: React.FC<CardProps> = ({ item, submitAnswer, i, highlighted }) => {
   return (
     <>
-      <button onClick={(event) => submitAnswer(event, i)} className={styles.card} type='button'>
+      <button type='button' disabled={highlighted !== '' ? true : false} onClick={(event) => submitAnswer(event, item.value, i)} className={`${styles.card} ${highlighted == 'red' ? styles.red : highlighted == 'green' ? styles.green : ''}`}>
         <Image className={styles.image} src={`/images/game/${item?.name}.jpg`} alt="" width="599" height="420" loading='eager' />
         <span className={styles.title}>{item.name ? item.name : 'Item name'}</span>
       </button>
