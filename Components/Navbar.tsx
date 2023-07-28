@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
     return (
         <nav className={styles.navbar}>
             <Link className={styles.navButton} href="/">Home</Link>
-            <Link className={styles.navButton} href="/leaderboard">High Scores</Link>
+            <Link className={styles.navButton} href="/high-scores">High Scores</Link>
         </nav>
     );
 };
