@@ -2,23 +2,41 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Game.module.css';
-import Card from '../Components/card';
+import Card from '../Components/FoodItemCard';
 import Items from '../Components/Items';
 
 import type FoodItem from '../interfaces/foodItem';
 const originalItems: FoodItem[] = require('../cache/foodData').data;
 const inter = Inter({ subsets: ['latin'] });
 
+// Pre-shuffle the originalItems array
+const shuffledItems = [...originalItems];
+for (let i = shuffledItems.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [shuffledItems[i], shuffledItems[j]] = [shuffledItems[j], shuffledItems[i]];
+}
+
+let currentIndex = 0;
+
 const getRandomItems = (): [FoodItem, FoodItem] => {
-  if (originalItems.length < 2) {
+  if (shuffledItems.length < 2) {
     throw new Error('Not enough items to play the game.');
   }
 
-  const randomIndex1 = Math.floor(Math.random() * originalItems.length);
-  const item1 = originalItems.splice(randomIndex1, 1)[0];
+  // Get the next two items from the shuffled array
+  const item1 = shuffledItems[currentIndex];
+  const item2 = shuffledItems[currentIndex + 1];
+  currentIndex += 2;
 
-  let randomIndex2 = Math.floor(Math.random() * (originalItems.length - 1));
-  const item2 = originalItems.splice(randomIndex2, 1)[0];
+  // If we reach the end of the array, reshuffle and reset the currentIndex
+  if (currentIndex >= shuffledItems.length) {
+    currentIndex = 0;
+    // Re-shuffle the array
+    for (let i = shuffledItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledItems[i], shuffledItems[j]] = [shuffledItems[j], shuffledItems[i]];
+    }
+  }
 
   return [item1, item2];
 }
