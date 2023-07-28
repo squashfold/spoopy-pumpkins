@@ -3,13 +3,25 @@ import styles from '../styles/End.module.css';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
-
+import type ExpertiseLevel from '../interfaces/expertiseLevel';
+const expertiseLevels: ExpertiseLevel[] = require('../cache/expertiseLevels').expertiseLevels;
 
 
 const EndPage: React.FC = () => {
 
     const [score, setScore] = useState(0);
     const [showContent, setShowContent] = useState(false);
+    const [expertiseLevel, setExpertiseLevel] = useState<ExpertiseLevel>(expertiseLevels[0]);
+
+    const getExpertiseLevel = (score: number): ExpertiseLevel => {
+        let highestExpertiseLevel: ExpertiseLevel = expertiseLevels[expertiseLevels.length - 1];
+        for (const level of expertiseLevels) {
+            if (score >= level.min && score <= level.max) {
+                return level;
+            }
+        }
+        return highestExpertiseLevel;
+    };
 
 
     useEffect(() => {
@@ -29,8 +41,8 @@ const EndPage: React.FC = () => {
 
         const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
         const lastScore = existingScores[existingScores.length - 1];
-        console.log(lastScore)
         setScore(lastScore.score);
+        setExpertiseLevel(getExpertiseLevel(lastScore.score));
     }, []);
 
     return (
@@ -38,17 +50,26 @@ const EndPage: React.FC = () => {
             {showContent && (
                 <div className={`${styles.container} ${inter.className}`} id="end-container">
                     <div className={styles.content}>
-                        <h1 className={styles.title}>Thanks for playing!</h1>
+                        <div>
+                            <h1 className={styles.title}>Thanks for playing!</h1>
 
-                        <span className={styles.scoreText}>
-                            You scored <span className={styles.pulsating}>{score}</span> points.
-                        </span>
+                            <span className={styles.scoreText}>
+                                You scored <span className={styles.pulsating}>{score}</span> points.
+                            </span>
+                        </div>
+                        <h3>
+                            {`You are a ${expertiseLevel.title}`}
+                        </h3>
+
+                        <p>
+                            {expertiseLevel.description}
+                        </p>
 
                         <Link className="ctaButton" href="/game">
                             Play again
                         </Link>
                     </div>
-                    <svg version="1.1" className={styles.tree} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1343.201 2230.123" enable-background="new 0 0 1343.201 2230.123"
+                    <svg version="1.1" className={styles.tree} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1343.201 2230.123" enableBackground="new 0 0 1343.201 2230.123"
                         xmlSpace="preserve">
                         <polygon id="shadow" opacity="0.2" fill="#606060" points="665.336,2230.123 -6.536,1843.009 665.615,1462.166 1336.429,1843.009 
   "/>

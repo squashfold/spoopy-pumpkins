@@ -84,18 +84,18 @@ const GamePage: React.FC = () => {
     // Scores
     if (item === 0) {
       if (value < randomItems[1].value) {
-        setScore(score + 1);
+        setScore(score + 5);
         setHighlighted(['green', 'red'])
       } else {
-        setScore(score - 2);
+        // setScore(score - 2);
         setHighlighted(['red', 'green'])
       }
     } else {
       if (value < randomItems[0].value) {
-        setScore(score + 1);
+        setScore(score + 5);
         setHighlighted(['red', 'green'])
       } else {
-        setScore(score - 2);
+        // setScore(score - 2);
         setHighlighted(['green', 'red'])
       }
     }
