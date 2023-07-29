@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Game.module.css';
 import Card from '../Components/FoodItemCard';
-import Modal from './modal';
+import Modal from '../Components/Modal';
 
 import type FoodItem from '../interfaces/foodItem';
 const originalItems: FoodItem[] = require('../cache/foodData').data;
