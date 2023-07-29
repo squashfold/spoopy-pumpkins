@@ -17,48 +17,48 @@
     font-weight: bold;
 }
 
-.leaderboard {
+.scores {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1.5rem;
     table-layout: fixed;
 }
 
-.leaderboard th,
-.leaderboard td {
+.scores th,
+.scores td {
     padding: 1rem;
     border-bottom: 1px solid #ccc;
 }
 
-.leaderboard th:first-child {
+.scores th:first-child {
     width: 10px;
     text-align: center;
 }
 
-.leaderboard th:nth-child(2) {
+.scores th:nth-child(2) {
     text-align: left;
 }
 
-.leaderboard th:last-child,
-.leaderboard td:last-child {
+.scores th:last-child,
+.scores td:last-child {
     text-align: right;
 }
 
-.leaderboard th {
+.scores th {
     background: var(--color-background-highlight);
     font-weight: bold;
 }
 
-.leaderboard tr:last-child td {
+.scores tr:last-child td {
     border-bottom: none;
 }
 
-.leaderboard th:not(:last-child),
-.leaderboard td:not(:last-child) {
+.scores th:not(:last-child),
+.scores td:not(:last-child) {
     border-right: none;
 }
 
-.leaderboard tbody tr:hover {
+.scores tbody tr:hover {
     transform: scale(1.02);
     transition: transform 0.3s ease;
     background: var(--color-background-highlight);

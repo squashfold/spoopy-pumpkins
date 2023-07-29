@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Game.module.css';
 import Card from '../Components/FoodItemCard';
+import Modal from './modal';
 
 import type FoodItem from '../interfaces/foodItem';
 const originalItems: FoodItem[] = require('../cache/foodData').data;
@@ -43,10 +44,12 @@ const getRandomItems = (): [FoodItem, FoodItem] => {
 const GamePage: React.FC = () => {
   const [randomItems, setRandomItems] = useState<[FoodItem, FoodItem]>([originalItems[0], originalItems[1]]);
   const [score, setScore] = useState<number>(0);
-  const [result, setResult] = useState<string[]>(['','']);
-  const [remainingTime, setRemainingTime] = useState(10); // Set how long the game should be (10s)
+  const [remainingTime, setRemainingTime] = useState(30); // Set how long the game should be (30s)
+  const [result, setResult] = useState<string[]>(['', '']);
   const [timerActive, setTimerActive] = useState(true);
   const [gameEnded, setGameEnded] = useState(false); // New state to track if the game has ended
+  const [showModal, setShowModal] = useState(false);
+  const [answer, setAnswer] = useState(false)
 
   const startTimer = () => {
     // Start the timer only if it's active and remainingTime is greater than 0
@@ -72,7 +75,7 @@ const GamePage: React.FC = () => {
       try {
         const [item1, item2] = getRandomItems();
         setRandomItems([item1, item2]);
-        setResult(['',''])
+        setResult(['', ''])
       } catch (error) {
         console.log("error.message");
       }
@@ -80,26 +83,44 @@ const GamePage: React.FC = () => {
 
   }
 
-  const submitAnswer = (event: any, value: number, item: number) => {
+  type CardAnswer = { index: number, value: number };
+
+  const compareValues = (selectedCard: CardAnswer, randomItems: FoodItem[]) => {
     // Scores
-    if (item === 0) {
-      if (value < randomItems[1].value) {
-        setScore(score + 1);
-        setResult(['correct','incorrect'])
+    const [firstItem, secondItem] = randomItems;
+    const choseFirstCard = selectedCard.index === 0;
+
+    if (choseFirstCard) {
+      if (selectedCard.value < secondItem.value) {
+        setScore(score + 5);
+        setAnswer(true)
+        return ['correct', 'incorrect'];
       } else {
-        setScore(score - 1);
-        setResult(['incorrect','correct'])
+        setAnswer(false)
+        return ['incorrect', 'correct'];
       }
     } else {
-      if (value < randomItems[0].value) {
-        setScore(score + 1);
-        setResult(['incorrect','correct'])
+      if (selectedCard.value < firstItem.value) {
+        setScore(score + 5);
+        setAnswer(true)
+        return ['incorrect', 'correct'];
       } else {
-        setScore(score - 1);
-        setResult(['correct','incorrect'])
+        setAnswer(false)
+        return ['correct', 'incorrect'];
       }
     }
-    handleNewRound();
+  };
+
+  const submitAnswer = (event: any, value: number, item: number) => {
+    const selectedCard = { index: item, value: value }
+    setResult(compareValues(selectedCard, randomItems));
+    setTimerActive(false);
+    setShowModal(true);
+    setTimeout(() => {
+      setShowModal(false);
+      handleNewRound();
+      setTimerActive(true)
+    }, 3000);
   }
 
   useEffect(() => {
@@ -108,22 +129,24 @@ const GamePage: React.FC = () => {
   }, [remainingTime, timerActive]);
 
   const handleGameEnd = () => {
-      window.alert('Game ended! The scores are saved to localstorage');
 
-      // Step 1: Retrieve existing scores from localStorage and parse it into an array
-      const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
+    // Step 1: Retrieve existing scores from localStorage and parse it into an array
+    const existingScores = JSON.parse(localStorage.getItem('scores') || '[]');
 
-      // Step 2: Create a new score object containing the score and current datetime
-      const newScore = {
-        score,
-        datetime: new Date().toISOString(), // Store the datetime in ISO format
-      };
+    // Step 2: Create a new score object containing the score and current datetime
+    const newScore = {
+      score,
+      datetime: new Date().toISOString(), // Store the datetime in ISO format
+    };
 
-      // Step 3: Add the new score object to the existing scores array
-      existingScores.push(newScore);
+    // Step 3: Add the new score object to the existing scores array
+    existingScores.push(newScore);
 
-      // Step 4: Save the updated scores array back to localStorage
-      localStorage.setItem('scores', JSON.stringify(existingScores));
+    // Step 4: Save the updated scores array back to localStorage
+    localStorage.setItem('scores', JSON.stringify(existingScores));
+
+    // Step 5: Redirect to "/end" automatically after a delay to allow the transition to be visible
+    window.location.href = "/end";
   };
 
   return (
@@ -145,11 +168,12 @@ const GamePage: React.FC = () => {
         </div>
         <h1 className={styles.header}>Which has the smaller carbon footprint?</h1>
         <div className={styles.cards}>
-          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} result={result[0]}/>
+          <Card item={randomItems[0] ? randomItems[0] : originalItems[0]} submitAnswer={submitAnswer} i={0} result={result[0]} />
           <span className={styles.separator}>vs</span>
-          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} result={result[1]}/>
+          <Card item={randomItems[1] ? randomItems[1] : originalItems[1]} submitAnswer={submitAnswer} i={1} result={result[1]} />
         </div>
       </main>
+      {showModal && <Modal isCorrect={answer} result={result} items={randomItems}/>}
     </>
   )
 }

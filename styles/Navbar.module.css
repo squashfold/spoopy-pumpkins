@@ -1,11 +1,11 @@
 .navbar {
     background: var(--color-background-header);
-    padding: 1rem;
+    padding: .7rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
-.leaderboardButton {
+.navButton {
     font-size: 1.2rem;
     cursor: pointer;
     color: inherit;
@@ -14,4 +14,28 @@
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+}
+
+.hithere {
+    animation: hithere 1s ease infinite;
+    animation-delay: 5s;
+}
+
+@keyframes hithere {
+    40%,70% {
+        transform:  scale(1) rotate(0);
+    }
+
+    50% {
+        transform: rotate(-5deg) scale(1.1);
+    }
+
+    55% {
+        transform: rotate(5deg) scale(1.1);
+    }
+
+    60% {
+        transform: rotate(-5deg) scale(1.1);
+    }
+
 }
