@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/Modal.module.css';
-import type { FoodItem } from '../interfaces/foodItem';
+import type FoodItem from '../interfaces/foodItem';
 
 type ModalProps = {
     isCorrect: boolean;
