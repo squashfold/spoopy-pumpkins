@@ -3,6 +3,8 @@
     padding: .7rem;
     display: flex;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
 }
 
 .navButton {

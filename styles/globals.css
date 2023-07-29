@@ -14,12 +14,12 @@
   --color-background-highlight: color-mix(in srgb,var(--color-background),var(--color-text) 30%);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --color-text: var(--color-light);
     --color-background: var(--color-dark);
   }
-}
+} */
 
 * {
   box-sizing: border-box;

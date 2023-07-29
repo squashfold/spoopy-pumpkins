@@ -53,11 +53,11 @@ const HighScores: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {scores.map((entry, index) => (
+                        {scores.length > 1 && scores.map((entry, index) => (
                             <tr key={index}>
-                                <td>{entry.index}</td>
-                                <td>{`${entry.score} ${entry.score === 1 ? 'Point' : 'Points'}`}</td>
-                                <td>{formatDate(entry.datetime)}</td>
+                                <td>{entry.index && entry.index}</td>
+                                <td>{entry.score && `${entry.score} ${entry.score === 1 ? 'Point' : 'Points'}`}</td>
+                                <td>{entry.datetime && formatDate(entry.datetime)}</td>
                             </tr>
                         ))}
                     </tbody>
