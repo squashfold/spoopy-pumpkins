@@ -39,7 +39,7 @@ const HighScores: React.FC = () => {
         }
 
     }, []);
-
+    
     return (
         <div className={styles.container}>
             <div className={styles.content}>
@@ -53,13 +53,19 @@ const HighScores: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {scores.length > 1 && scores.map((entry, index) => (
+                        {(scores.length && typeof scores[0] !== 'undefined') ? scores.map((entry, index) => (
                             <tr key={index}>
                                 <td>{entry.index && entry.index}</td>
                                 <td>{entry.score && `${entry.score} ${entry.score === 1 ? 'Point' : 'Points'}`}</td>
                                 <td>{entry.datetime && formatDate(entry.datetime)}</td>
                             </tr>
-                        ))}
+                        )) : (
+                            <tr>
+                                <td>#</td>
+                                <td>No entires found</td>
+                                <td>-</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>
