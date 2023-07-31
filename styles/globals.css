@@ -9,22 +9,36 @@
   --color-light: #f0f0f0;
   --color-text: var(--color-dark);
   --color-background: var(--color-light);
+
   --color-background-container: color-mix(in srgb,var(--color-background),var(--color-text) 10%);
   --color-background-header: color-mix(in srgb,var(--color-background),var(--color-text) 20%);
   --color-background-highlight: color-mix(in srgb,var(--color-background),var(--color-text) 30%);
+
+  --color-text-soft: color-mix(in srgb,var(--color-text),var(--color-background) 10%);
+  --color-text-softer: color-mix(in srgb,var(--color-text),var(--color-background) 20%);
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --color-text: var(--color-light);
     --color-background: var(--color-dark);
   }
-} */
+}
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+@media screen and
+  (prefers-reduced-motion: reduce),
+  (update: slow) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 html,

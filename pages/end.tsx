@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 import type ExpertiseLevel from '../interfaces/expertiseLevel';
+import Head from 'next/head';
 const expertiseLevels: ExpertiseLevel[] = require('../cache/expertiseLevels').expertiseLevels;
 
 
@@ -36,6 +37,13 @@ const EndPage: React.FC = () => {
     }, []);
 
     return (
+      <>
+        <Head>
+          <title>Food Planet Game | Game Over</title>
+          <meta name="description" content="A game to encourage eco-friendly food decisions" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <div>
             {showContent && (
                 <div className={`${styles.container} ${styles.unblur} ${inter.className}`}>
@@ -61,7 +69,7 @@ const EndPage: React.FC = () => {
                     </div>
                     <svg version="1.1" className={styles.tree} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1343.201 2230.123" enableBackground="new 0 0 1343.201 2230.123"
                         xmlSpace="preserve">
-                        <polygon id="shadow" opacity="0.2" fill="#606060" points="665.336,2230.123 -6.536,1843.009 665.615,1462.166 1336.429,1843.009 
+                        <polygon id="shadow" opacity="0.2" fill="#606060" points="665.336,2230.123 -6.536,1843.009 665.615,1462.166 1336.429,1843.009
   "/>
                         <g className={styles.terrain} >
                             <polygon fill="#664B26" points="1195.731,1243.657 1275.661,1007.472 1115.802,1100.221   " />
@@ -94,9 +102,9 @@ const EndPage: React.FC = () => {
                             <polygon opacity="0.2" points="672.339,1036.853 423.8,893.652 672.443,752.77 920.59,893.652   " />
                             <g>
                                 <polygon fill="#936A3A" points="671.815,648.11 585.453,598.35 671.851,549.397 758.076,598.35    " />
-                                <polygon fill="#664B26" points="671.753,648.142 671.753,746.224 671.753,747.264 671.753,844.306 671.753,845.346 
+                                <polygon fill="#664B26" points="671.753,648.142 671.753,746.224 671.753,747.264 671.753,844.306 671.753,845.346
       671.753,943.428 757.377,894.05 757.377,795.968 757.377,794.929 757.377,697.886 757.377,696.846 757.377,598.764    "/>
-                                <polygon fill="#7F5E30" points="586.239,598.753 586.239,696.836 586.239,697.875 586.239,794.918 586.239,795.957 
+                                <polygon fill="#7F5E30" points="586.239,598.753 586.239,696.836 586.239,697.875 586.239,794.918 586.239,795.957
       586.239,894.039 671.862,943.417 671.862,845.335 671.862,844.295 671.862,747.253 671.862,746.213 671.862,648.131     "/>
                             </g>
                             <g>
@@ -120,6 +128,7 @@ const EndPage: React.FC = () => {
                 </div>
             )}
         </div>
+      </>
     );
 };
 

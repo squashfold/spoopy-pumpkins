@@ -2,10 +2,18 @@ import React from 'react';
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
+import Head from 'next/head';
 const inter = Inter({ subsets: ['latin'] });
 
 const IntroPage: React.FC = () => {
   return (
+    <>
+    <Head>
+      <title>Food Planet Game | Welcome</title>
+      <meta name="description" content="A game to encourage eco-friendly food decisions" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
     <main className={`${inter.className} ${styles.container}`} >
       <h1 className={styles.title}>Welcome to Food Planet Game</h1>
       <p className={styles.text}>
@@ -17,6 +25,7 @@ const IntroPage: React.FC = () => {
         </Link>
       </div>
     </main >
+    </>
   );
 };
 
