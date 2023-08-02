@@ -18,15 +18,16 @@ const Modal: React.FC<ModalProps> = ({ isCorrect, result, items }) => {
         lowerCo2Food = food2;
         higherCo2Food = food1;
     }
-    const co2Ratio = (food1.value / food2.value).toFixed(1);
+    const lowerCo2Ratio = (lowerCo2Food.value / higherCo2Food.value).toFixed(1);
+    const higherCo2Ratio = (higherCo2Food.value / lowerCo2Food.value).toFixed(1);
 
     return (
         <div className={styles.modalContainer}>
             <div className={styles.modal}>
                 <h4>{isCorrect ? 'Correct!' : 'Incorrect!'}</h4>
                 {isCorrect
-                    ? `${lowerCo2Food.name} results in ${co2Ratio} times less CO2 per kilo than ${higherCo2Food.name}.`
-                    : `${higherCo2Food.name} results in ${co2Ratio} times more CO2 per kilo than ${lowerCo2Food.name}.`}
+                    ? `${lowerCo2Food.name} results in ${lowerCo2Ratio} of the CO2 per kilo from ${higherCo2Food.name}.`
+                    : `${higherCo2Food.name} results in ${higherCo2Ratio} times the CO2 per kilo from ${lowerCo2Food.name}.`}
             </div>
         </div>
     );
